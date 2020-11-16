@@ -75,6 +75,8 @@ arrpos2=['5', '+', 'B']
 arrpos3=['A', '>', 'B','and','B','<','C','or','A','<','C','+','1']
 arrpos4=['(','a','>','b','or','b','>','c',')','or','(','c','>','d','and','c','>','b',')',')']
 cont_temp=0
-temp=temporalesPosfijo(arrpos,cont_temp)
+'''temp=temporalesPosfijo(arrpos,cont_temp)
 
-print(temp)
+print(temp)'''
+
+print(pj.posfijo(arrpos3))
