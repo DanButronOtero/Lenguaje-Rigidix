@@ -96,8 +96,8 @@ def posfijo(arr):
 
     
 
-arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
+'''arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
 salida=posfijo(arrpos4)
 print(salida)
-print(arrpos4)
+print(arrpos4)'''
 
