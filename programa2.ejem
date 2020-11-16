@@ -1,0 +1,61 @@
+inicio{
+ num Numero ;
+ cad Cadena = 'cadena de prueba';
+ Cadena = Cadena;
+ Prueba ( num Parametro ) {
+     imprimir Parametro ;
+      Prueba ( num Parametro ) {
+     imprimir Parametro ;
+ } ;
+ } ;
+ imprimir Numero;
+
+ si ( 1 > 2  ) { 
+     imprimir Parametro ;
+  } 
+  
+ A = 5+2 ;
+ mientras ( A < 5 and B > 5 ) {
+     imprimir A ;
+ }
+}
+fin
+
+
+
+
+inicio{
+ num A;
+ num NumEntero = (5+2)*(5+8/3);
+ num NumEntero1 = (5+2)*(5+8/3);
+ num NumEntero2 = (5+2)*(5+8/3)+3*4*5*6;
+ cad Cadena = 'prueba';
+
+ Prueba (num A ) {
+      num X;
+      
+      imprimir A;
+  } 
+Prueba2 (num A ) {
+      num X;
+      imprimir A;
+  } 
+
+ imprimir Numero;
+
+ si ( 1 > 2  ) { 
+     imprimir Parametro ;
+  } 
+  sino { 
+      imprimir Parametro ;
+   }
+  
+ A = 5+2 ;
+
+ mientras ( A < 5 and B > 5 ) {
+     imprimir A ;
+ }
+
+ llamar Prueba (  A ) ;
+}
+fin
