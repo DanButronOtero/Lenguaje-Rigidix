@@ -74,9 +74,9 @@ def posfijo(arr):
                     pilaPrin.append(pilaSec.pop())
 
         elif len(pilaSec) != 0:
-
+            print(pilaSec)
             if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):
-                while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8:
+                while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8 and len(pilaSec)-1>0:
                     aux =pilaSec.pop()
                     pilaPrin.append(aux)
                 pilaSec.append(i)
@@ -98,6 +98,6 @@ def posfijo(arr):
 
 '''arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
 salida=posfijo(arrpos4)
-print(salida)
-print(arrpos4)'''
+print(salida)'''
+
 

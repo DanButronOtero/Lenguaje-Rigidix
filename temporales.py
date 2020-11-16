@@ -36,7 +36,7 @@ def temporalesPosfijo(arr,i):
                 arr.pop(i+1)
             i=i+1            
     return temp
-
+'''
 def codigoIntermedio(var,tokpal):
     cuadruples=[]
     tokpal=tokpal.tolist()
@@ -66,10 +66,11 @@ def codigoIntermedio(var,tokpal):
             aux2 =[]
             
     return cuadruples
-
+'''
 
 arrpos = [
 '(', 'a', '*', 'b', '+', 'c', '/', 'b', ')', '+', 'a', '*', 'a', '+', '(', 'b', '+', 'c', '/', 'd', ')', '+', 'a']
+
 arrpos2=['5', '+', 'B']
 
 arrpos3=['A', '>', 'B','and','B','<','C','or','A','<','C','+','1']
@@ -79,4 +80,4 @@ cont_temp=0
 
 print(temp)'''
 
-print(pj.posfijo(arrpos3))
+print(pj.posfijo(arrpos4))
