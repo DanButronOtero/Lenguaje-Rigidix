@@ -59,26 +59,20 @@ def clasificar(car):
 #principal
 def posfijo(arr):
     for i in arr:
-        print(pilaPrin)
-        print(pilaSec)
-        print('')
+
         if i not in operadores:
-            print('Variable     *******************')
             pilaPrin.append(i)
         elif clasificar(i)==8:#(
-            print('Parantesis     *******************')
             pilaSec.append(i)
         elif clasificar(i)==7:#)
-            print('cierre     *******************')
-            print('*************')
+
             while pilaSec:
                 if pilaSec[len(pilaSec)-1]=='(':
                     pilaSec.pop()
                     break
                 else:
                     pilaPrin.append(pilaSec.pop())
-                    
-            print('*************')
+
         elif len(pilaSec) != 0:
 
             if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):

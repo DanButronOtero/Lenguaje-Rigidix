@@ -32,9 +32,9 @@ def clasificar(car):
     if car=='-':
         return 4
     if car=='(':
-        return 3
+        return 8
     if car==')':
-        return 2
+        return 7
     if car=='<':
         return 1
     if car=='>':
@@ -59,32 +59,45 @@ def clasificar(car):
 #principal
 def posfijo(arr):
     for i in arr:
+
         if i not in operadores:
             pilaPrin.append(i)
-        else:
-            if len(pilaSec)==0:
-                if clasificar(i) != 2:
-                    pilaSec.append(i)
-            else :
-                if clasificar(i) ==2:
-                    while pilaSec:
-                        aux =pilaSec.pop()
-                        if clasificar(aux) != 3:
-                            pilaPrin.append(aux)
+        elif clasificar(i)==8:#(
+            pilaSec.append(i)
+        elif clasificar(i)==7:#)
+
+            while pilaSec:
+                if pilaSec[len(pilaSec)-1]=='(':
+                    pilaSec.pop()
+                    break
                 else:
-                    if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(i) !=3:
-                        while pilaSec:
-                            aux =pilaSec.pop()
-                            if clasificar(aux) != 3:
-                                pilaPrin.append(aux)
-                        pilaSec.append(i)
-                    else:
-                        pilaSec.append(i)
+                    pilaPrin.append(pilaSec.pop())
+
+        elif len(pilaSec) != 0:
+
+            if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):
+                while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8:
+                    aux =pilaSec.pop()
+                    pilaPrin.append(aux)
+                pilaSec.append(i)
+            else:
+                pilaSec.append(i)
+        else:
+            pilaSec.append(i)
+
+
+
     while pilaSec:
         aux =pilaSec.pop()
-        if clasificar(aux) != 3:
+        if clasificar(aux) != 8:
             pilaPrin.append(aux)
 
-
     return pilaPrin
+
+    
+
+arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
+salida=posfijo(arrpos4)
+print(salida)
+print(arrpos4)
 
