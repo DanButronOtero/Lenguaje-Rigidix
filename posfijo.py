@@ -74,7 +74,6 @@ def posfijo(arr):
                     pilaPrin.append(pilaSec.pop())
 
         elif len(pilaSec) != 0:
-            print(pilaSec)
             if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):
                 while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8 and len(pilaSec)-1>0:
                     aux =pilaSec.pop()
