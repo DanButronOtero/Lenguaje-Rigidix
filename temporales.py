@@ -68,7 +68,7 @@ def codigoIntermedio(var,tokpal):
     return cuadruples
 
 
-arrpos = [
+'''arrpos = [
 '(', 'a', '*', 'b', '+', 'c', '/', 'b', ')', '+', 'a', '*', 'a', '+', '(', 'b', '+', 'c', '/', 'd', ')', '+', 'a']
 
 arrpos2=['5', '+', 'B']
@@ -83,4 +83,4 @@ print(temp)
 print(pj.posfijo(arrpos4))
 
 for i in temp:
-    print(i)
+    print(i)'''

@@ -253,6 +253,10 @@ def senCond(arr,i,arr2):
             print([arrAux2[0],arrAux2[2],arrAux2[1],str(eV)])
             insertarinter(['','','','goto '+str(eF)])
             insertarinter(['','',str(eV)+':',''])
+        else:
+            print(arrAux2,'************')
+            print(temporales.temporalesPosfijo(arrAux2,0))
+            sleep(10)
             
         for p in range(0,len(arrAux)):
             if vartipo(arrAux[p])!= None:

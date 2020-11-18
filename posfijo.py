@@ -59,7 +59,6 @@ def clasificar(car):
 #principal
 def posfijo(arr):
     for i in arr:
-
         if i not in operadores:
             pilaPrin.append(i)
         elif clasificar(i)==8:#(
@@ -72,7 +71,10 @@ def posfijo(arr):
                     break
                 else:
                     pilaPrin.append(pilaSec.pop())
-
+        elif len(pilaSec) ==1 and clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8:
+            aux =pilaSec.pop()
+            pilaPrin.append(aux)
+            pilaSec.append(i)
         elif len(pilaSec) != 0:
             if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):
                 while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8 and len(pilaSec)-1>0:
@@ -94,9 +96,10 @@ def posfijo(arr):
     return pilaPrin
 
     
-
-'''arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
-salida=posfijo(arrpos4)
-print(salida)'''
-
+'''
+arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
+arrpos5=['a','>','b','or','b','<','c']
+salida=posfijo(arrpos5)
+print(salida)
+'''
 
