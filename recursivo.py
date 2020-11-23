@@ -43,6 +43,53 @@ separadores = [
         ')',
         '=='
     ]
+# CONDICIONALES CODIGO INTERMEDIO
+def condIntermedio(arr,eV,eF):
+    global cont_temp 
+    global cont_etiqueta
+    if arr[len(arr)-1][2] =='and':
+        andIntermedio(arr,eV,eF)
+    elif arr[len(arr)-1][2] =='or':
+        orIntermedio(arr,eV,eF)
+    else:
+        insertarinter([arr[len(arr)-1][0],arr[len(arr)-1][1],arr[len(arr)-1][2],'goto '+str(eV)])
+        insertarinter(['','','','goto '+str(eF)])
+        
+# And Codigo Intermedio
+def andIntermedio(arr,eV,eF):
+    global cont_etiqueta
+    rizq =arr[len(arr)-1][0]
+    rder =arr[len(arr)-1][1]
+    E1v = cont_etiqueta
+    cont_etiqueta=cont_etiqueta+10
+    E1f=eF
+    E2v=eV
+    E2f=eF
+    arrbusqueda= np.array(arr)[:,3]
+    iizq=np.where(arrbusqueda==rizq)[0][0]
+    ider=np.where(arrbusqueda==rder)[0][0]
+    condIntermedio(arr[:iizq+1],E1v,E1f)
+    insertarinter(['','',str(E1v)+':',''])
+    condIntermedio(arr[:ider+1],E2v,E2f)
+
+#OR codigo Intermedio
+def orIntermedio(arr,eV,eF):
+    global cont_etiqueta
+    E1v=eV
+    E1f= cont_etiqueta
+    cont_etiqueta=cont_etiqueta+10
+    E2v=eV
+    E2f=eF
+    rizq =arr[len(arr)-1][0]
+    rder =arr[len(arr)-1][1]
+    arrbusqueda= np.array(arr)[:,3]
+    iizq=np.where(arrbusqueda==rizq)[0][0]
+    ider=np.where(arrbusqueda==rder)[0][0]
+    condIntermedio(arr[:iizq+1],E1v,E1f)
+    insertarinter(['','',str(E1f)+':',''])
+    condIntermedio(arr[:ider+1],E2v,E2f)
+#insercion codigo intermedio
+#depende de el nivel actual de el codigo
 def insertarinter(arr):
     global inter_metodo
     if metActual()==0:
@@ -233,7 +280,7 @@ def senCond(arr,i,arr2):
     eS=cont_etiqueta
     cont_etiqueta=cont_etiqueta+10
     print(cont_etiqueta)
-    sleep(1)
+    #sleep(1)
     print(bcolors.WARNING + "senCond" + bcolors.ENDC)
     if arr[i]== 11 and arr[i+1]==16:#si (
         i=i+2
@@ -254,9 +301,12 @@ def senCond(arr,i,arr2):
             insertarinter(['','','','goto '+str(eF)])
             insertarinter(['','',str(eV)+':',''])
         else:
-            print(arrAux2,'************')
-            print(temporales.temporalesPosfijo(arrAux2,0))
-            sleep(10)
+            auxVariables=np.array(varDeclaradas)[:,1]
+            for l in arrAux2:
+                if l in auxVariables:
+                    varIncremetaUso(l)
+            condIntermedio(temporales.temporalesPosfijo(arrAux2,cont_temporales),eV,eF)
+            insertarinter(['','',str(eV)+':',''])
             
         for p in range(0,len(arrAux)):
             if vartipo(arrAux[p])!= None:
@@ -283,12 +333,9 @@ def senCond(arr,i,arr2):
                 i=i+1
                 insertarinter(['','','','goto '+str(eS)])
                 insertarinter(['','',str(eF)+':',''])
-                print(['','',str(eF)+':',''])
                 i=senC2(arr,i,arr2)
                 insertarinter(['','',str(eS)+':',''])
-                print(['','',str(eS)+':',''])
-                print(inter)
-                sleep(5)
+                #sleep(5)
                 return i
             else:
                 return 'a'
@@ -785,9 +832,7 @@ def inicio(arr,i,arr2):
                         print(bcolors.OKGREEN + 'Correcto!' + bcolors.ENDC)
                         for p in inter_metodo:
                             inter.append(p)
-                        print(inter_metodo)
-                        print('***/*')
-                        sleep(2)
+
                         return True
             else:
                 print(bcolors.FAIL + "Error 1" + bcolors.ENDC)

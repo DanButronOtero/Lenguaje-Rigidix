@@ -96,10 +96,8 @@ def posfijo(arr):
     return pilaPrin
 
     
-'''
-arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
-arrpos5=['a','>','b','or','b','<','c']
-salida=posfijo(arrpos5)
-print(salida)
-'''
 
+'''arrpos4=['(','a','+','b','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
+arrpos5=['a','+','b']
+salida=posfijo(arrpos4)
+print(salida)'''

@@ -1,45 +1,14 @@
 inicio{
- cad A ;
+ num A ;
  num B = 22;
 
-
-Prueba (num C ,cad D, num X ) {
-      num A;
-      imprimir C;
-      X=5+2;
-      imprimir D;
-      imprimir X;
-      imprimir A;
-      
-
-  }
-  
-Prueba2 (num C ,cad D, num X ) {
-      num A;
-      imprimir C;
-      X=X+C;
-      si ( B > 2 ){
-  imprimir A;
-  }
-      imprimir D;
-      imprimir X;
-      imprimir A;
-
-  }
-
-imprimir A;
-leer A;
-imprimir B;
-si ( B > 2 ){
-  imprimir A;
-  si ( A > A ){
+  si ( B > A or A > A  and A > B){
   imprimir A;
 }
-}
-sino{
+sino {
   imprimir A;
 }
-llamar Prueba (B ,A,B) ;
-llamar Prueba2 (B ,A ,B) ;
+
+
 }
 fin
