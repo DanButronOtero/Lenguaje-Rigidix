@@ -25,6 +25,23 @@ class bcolors:
         #number     7
         #cadena     8
         #def (arr,i,arr2):
+
+operadores=[
+    '+',
+    '-',
+    '*',
+    '/',
+    '(',
+    ')',
+    '=',
+    '>=',
+    '<=',
+    '>',
+    '<',
+    'and',
+    'or'
+
+]
 separadores = [
         '{',
         '}',
@@ -196,17 +213,70 @@ def senR1(arr,i,arr2):
         return i
     else:
         return 'a'
-   
+#sentencia while
 def senRep(arr,i,arr2):
+    global cont_temp
     print(bcolors.WARNING + "senRep" + bcolors.ENDC)
+    global cont_etiqueta
+    #generacion etiquetas
+    eI=cont_etiqueta
+    cont_etiqueta=cont_etiqueta+10
+    eV=cont_etiqueta
+    cont_etiqueta=cont_etiqueta+10
+    eF=cont_etiqueta
+    cont_etiqueta=cont_etiqueta+10
+    #fin generacion etiqueta
     if arr[i]==12 and arr[i+1]== 16:# mientras (
         i=i+2
+        aux_cond=i
         i=condicion(arr,i,arr2)
+        arrAux=[]
+        arrAux2=[]
+        insertarinter(['','',str(eI)+':',''])
+        for p in range(aux_cond,i):
+            arrAux2.append(arr2[p])
+            if arr2[p]not in separadores and arr[p]== 6:
+                arrAux.append(arr2[p])
         if arr[i]==17 and arr[i+1]== 3:# ) {
             i=i+2
+            #Codigo intermedio
+            if len(arrAux2)==3:
+                #generacion de etiquetas
+                insertarinter([arrAux2[0],arrAux2[2],arrAux2[1],'goto '+str(eV)])
+                #print([arrAux2[0],arrAux2[2],arrAux2[1],str(eV)])
+                insertarinter(['','','','goto '+str(eF)])
+                insertarinter(['','',str(eV)+':',''])
+                varIncremetaUso(arrAux2[0])
+                varIncremetaUso(arrAux2[2])
+            else:
+                auxVariables=np.array(varDeclaradas)[:,1]
+                for l in arrAux2:
+                    if l in auxVariables:
+                        varIncremetaUso(l)
+                arr_temp=temporales.temporalesPosfijo(arrAux2,cont_temp)
+                band= False
+                for k in arr_temp:
+                    if k[2] in ['+','-','*','/']:
+                        inter.append(k)
+                        band= True
+                if band== True:
+                    cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1
+                condIntermedio(arr_temp,eV,eF)
+                insertarinter(['','',str(eV)+':',''])
+            
+            for p in range(aux_cond,i):
+                if arr[p]==7:#num
+                    arrAux.append("num")
+
+                if arr[p]==8:#num
+                    arrAux.append("cad")
+            
+            #fin codigo intermedio
             i=senR1(arr,i,arr2)
             if arr[i]==4:# }
                 i= i+1
+                insertarinter(['','','','goto '+str(eI)])
+                insertarinter(['','',str(eF)+':',''])
                 return i
             else:
                 return 'a'
@@ -237,10 +307,10 @@ def con1(arr,i,arr2):
 def condicion(arr,i,arr2):
     print(bcolors.WARNING + "condicion" + bcolors.ENDC)
     if arr[i] in [6,7,8]:# var num cad
-        i=expresion(arr,i,arr2)
+        i=EXP(arr,i,arr2)
         if arr[i]==22:# OpRel
             i=i+1
-            i=expresion(arr,i,arr2)
+            i=EXP(arr,i,arr2)
             i=con1(arr,i,arr2)
  
             return i
@@ -269,9 +339,10 @@ def senC1(arr,i,arr2):
         return i
     else:
         return i
-
+# sentencia if
 def senCond(arr,i,arr2):
     global cont_etiqueta
+    global cont_temp
     #generacion etiquetas
     eV=cont_etiqueta
     cont_etiqueta=cont_etiqueta+10
@@ -279,7 +350,7 @@ def senCond(arr,i,arr2):
     cont_etiqueta=cont_etiqueta+10
     eS=cont_etiqueta
     cont_etiqueta=cont_etiqueta+10
-    print(cont_etiqueta)
+    #print(cont_etiqueta)
     #sleep(1)
     print(bcolors.WARNING + "senCond" + bcolors.ENDC)
     if arr[i]== 11 and arr[i+1]==16:#si (
@@ -293,11 +364,11 @@ def senCond(arr,i,arr2):
             arrAux2.append(arr2[p])
             if arr2[p]not in separadores and arr[p]== 6:
                 arrAux.append(arr2[p])
-        print(arrAux2)
+        #print(arrAux2)
         if len(arrAux2)==3:
             #generacion de etiquetas
             insertarinter([arrAux2[0],arrAux2[2],arrAux2[1],'goto '+str(eV)])
-            print([arrAux2[0],arrAux2[2],arrAux2[1],str(eV)])
+            #print([arrAux2[0],arrAux2[2],arrAux2[1],str(eV)])
             insertarinter(['','','','goto '+str(eF)])
             insertarinter(['','',str(eV)+':',''])
         else:
@@ -305,8 +376,18 @@ def senCond(arr,i,arr2):
             for l in arrAux2:
                 if l in auxVariables:
                     varIncremetaUso(l)
-            condIntermedio(temporales.temporalesPosfijo(arrAux2,cont_temporales),eV,eF)
-            insertarinter(['','',str(eV)+':',''])
+            #1
+            arr_temp=temporales.temporalesPosfijo(arrAux2,cont_temp)
+            band= False
+            for k in arr_temp:
+                if k[2] in ['+','-','*','/']:
+                    inter.append(k)
+                    band= True
+            if band== True:
+                cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1
+                condIntermedio(arr_temp,eV,eF)
+                insertarinter(['','',str(eV)+':',''])
+            #2
             
         for p in range(0,len(arrAux)):
             if vartipo(arrAux[p])!= None:
@@ -381,9 +462,16 @@ def EXP(arr,i,arr2):
 
 def asignacion(arr,i,arr2):
     print(bcolors.WARNING + "asignacion" + bcolors.ENDC)
+    global cont_temp
+    var_actual =arr2[i]
+    valor_actual =arr2[i+2]
     if arr[i]==6 and arr[i+1]==14:# var =
         mact =metActual()
         arrasig=[]
+        pos_inicio=i+2
+        pos_fin=i
+        operacion = []
+        arr_temp = []
         #comprobacion var declarada y tipos compatibles
         if vartipo(arr2[i])=='num':
             p = i+2
@@ -391,6 +479,7 @@ def asignacion(arr,i,arr2):
                 if arr2[p] not in separadores:
                     arrasig.append(p)
                 p=p+1
+            pos_fin = p
             for p in arrasig:
                 if arr[p]==6:
                     varIncremetaUso(arr2[p])
@@ -404,6 +493,20 @@ def asignacion(arr,i,arr2):
                 if arr[p] ==8:
                     print('Error Cadena no compatible con  var Numerica')
                     i='a'
+
+            #temporales asignacion
+            if pos_fin-pos_inicio >1:
+                for k in range(pos_inicio,pos_fin):
+                    operacion.append(arr2[k])
+                arr_temp=temporales.temporalesPosfijo(operacion,cont_temp)
+                cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1
+
+                for k in arr_temp:
+                    inter.append(k)
+                inter.append([arr_temp[len(arr_temp)-1][3],'','=',var_actual])
+            else:
+                inter.append([valor_actual,'','=',var_actual])
+            
         else:
             p = i+2
             while arr2[p] != ';':
@@ -457,6 +560,7 @@ def lectura(arr,i,arr2):
         i=i+1
         if arr[i]==6 and vartipo(arr2[i])!=None:
             varIncremetaUso(arr2[i])
+            insertarinter(['','','leer',arr2[i]])
             i=i+1
         else:
             print("Variable ",arr2[i]," no declarada o tipo de dato incorrecto")
@@ -520,7 +624,7 @@ def llamar(arr,i,arr2):
     print(bcolors.WARNING + "llamar" + bcolors.ENDC)
     if arr[i]==19 and arr[i+1]==6 and arr[i+2]==16:# llamar Var (
         var = arr2[i+1]
-        print(arr2[i+1])
+
         metodo_incrementar(var)
         i=i+3
         ini_param=i
@@ -578,7 +682,7 @@ def sentencia(arr,i,arr2):
 
 def esc1(arr,i,arr2):
     print(bcolors.WARNING + "esc1" + bcolors.ENDC)
-    if arr[i] in [6,8]:# cadena | Var
+    if arr[i] in [6,8] and arr2[i+1] not in operadores:# cadena | Var
         if arr[i]==6 and vartipo(arr2[i])==None:
             print("Variable ",arr2[i]," no declarada")
             i='a'
@@ -586,13 +690,42 @@ def esc1(arr,i,arr2):
             varIncremetaUso(arr2[i])
         i=i+1
         return i
+    else:
+        i=EXP(arr,i,arr2)
+    
+        #print(arr2[i])
+        #sleep(1)
+        return i
 
 def escritura(arr,i,arr2):
+    global cont_temp
     print(bcolors.WARNING + "escritura" + bcolors.ENDC)
     if arr[i]==10:# imprimir
         i=i+1
-        insertarinter(['','','imprimir',arr2[i]])
+        pos_inicio=i
+        #insertarinter(['','','imprimir',arr2[i]])
         i=esc1(arr,i,arr2)
+        pos_fin=i
+        if arr[pos_inicio]==9:
+            insertarinter(['','','imprimir',arr2[i]])
+        else:
+            operacion= []
+            for k in range(pos_inicio,pos_fin):
+                operacion.append(arr2[k])
+
+            if arr[pos_inicio] ==8:
+                insertarinter(['','','imprimir',arr2[i-1]])
+            else:
+                if len(operacion) ==1:
+
+                    insertarinter(['','','imprimir',arr2[i-1]])
+                else:
+                    arr_temp=temporales.temporalesPosfijo(operacion,cont_temp)
+                    cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1  
+                    for k in arr_temp:
+                        insertarinter(k)
+                    insertarinter(['','','imprimir',arr_temp[len(arr_temp)-1][3]])
+
         if arr[i] ==9:# ;
             i= i+1
             return i
@@ -689,38 +822,37 @@ def declaracion(arr,i,arr2):
             i='a'
 
         i=i+1
-        print(arr2[i])
+        #print(arr2[i])
         var_actual=arr2[i]
         varDec_inter.append(['','',arr2[i-1],arr2[i]])
         #sleep(1)
         auxInicio=i+1
         i=dec2(arr,i,arr2)
         auxFin=i
-        print(auxFin-auxInicio)
+
     
         temp=[]
         if auxFin-auxInicio>1:
+            #print('Decalracion compleja')
             if (auxFin-1)-(auxInicio+1)>1:
                 for cont in range(auxInicio+1,auxFin-1):
                     temp.append([cont,arr[cont]])
                 variables.append(temp)
-                print(temp)
+                #print(temp)
                 aux_cad=[]
                 for cont in temp:
                     aux_cad.append(arr2[cont[0]])
                 #print(aux_cad)
-                arr_temp=temporales.temporalesPosfijo(aux_cad,0)
-                if len(arr_temp)>1:
+                arr_temp=temporales.temporalesPosfijo(aux_cad,cont_temp)
+                cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1
+                '''if len(arr_temp)>1:
                     for j in arr_temp:
-                        varDec_inter.append(j)
-                else:
-                    varDec_inter.append(arr_temp)  
-                    print(arr_temp[0][3])
-                    varDec_inter.append([arr_temp[0][3],'','=',var_actual])
-                    print(arr_temp[len(arr_temp)-1])
-                    cont_temp=int(arr_temp[len(arr_temp)-1][3][1:])+1
+                        inter.append(j)
+                    inter.append([arr_temp[len(arr_temp)-1][3],'','=',var_actual])'''
+            
+            
 
-        print(cont_temp)
+
         #sleep(1)
                         
         return i
@@ -818,9 +950,7 @@ def inicio(arr,i,arr2):
                 metUso=[]
                 for k in metodos:
                     metUso.append(k[2])
-                print(metUso)
-                print(np.ndarray.tolist(varT)[1])
-                print(np.ndarray.tolist(varT)[3])
+
                 if '0' in np.ndarray.tolist(varT)[3]:
                     print(bcolors.FAIL +"ERROR Variables No UTILIZADAS"+ bcolors.ENDC)
                     return False
@@ -845,8 +975,7 @@ def inicio(arr,i,arr2):
         return False
 
 def codigoIntermedio(var,tokpal):
-    for i in var:
-        print(i)
+
     cuadruples=[]
     for i in var:
         if i[0][1]==5 and i[1][1]==6 and i[2][1]==9:

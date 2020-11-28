@@ -98,6 +98,9 @@ def posfijo(arr):
     
 
 '''arrpos4=['(','a','+','b','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
+arrpos6=['a', '<', 'b', 'and',  '(', 'b', '<', 'c', 'or', 'c', '>', 'w',')',')', 'and', 'f', '>', 'g']
 arrpos5=['a','+','b']
-salida=posfijo(arrpos4)
-print(salida)'''
+salida=posfijo(arrpos6)
+print(salida)
+'''
+

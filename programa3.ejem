@@ -1,0 +1,21 @@
+inicio{
+
+ num A =12+1;
+ num B = 22+5+8;
+ num D = 1;
+ 
+ imprimir 'Inicio del Programa';
+
+  si ( A > B ){
+  imprimir A;
+}
+sino {
+imprimir B;
+}
+mientras ( A > D) {
+  imprimir D;
+}
+
+
+}
+fin

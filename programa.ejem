@@ -1,14 +1,26 @@
 inicio{
- num A ;
- num B = 22;
 
-  si ( B > A or A > A  and A > B){
-  imprimir A;
+ num A =12+1;
+ num B = 22+5+8;
+ num D = 1;
+ 
+ imprimir 'Inicio del Programa';
+
+si ( A > B ){
+  imprimir A+1;
 }
 sino {
-  imprimir A;
+leer B;
 }
-
+si ( A+1/B*B > D) {
+  imprimir D;
+}
+si ( A+1 > D) {
+  imprimir D+5;
+}
+si ( A+1 > D) {
+  imprimir D;
+}
 
 }
 fin

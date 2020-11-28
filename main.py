@@ -87,11 +87,10 @@ if len(err)== 0:
         for k in rc.metodos:
             print(k)
         print('\n\n')
-        for q in rc.variables:
+ 
+        #print(rc.varDec_inter)
+        for q in rc.varDec_inter:
             print(q)
-            for k in q:
-                print(tokpal[k[0]])
-        print(rc.varDec_inter)
         for q in rc.inter:
             print(q)
         #print(rc.varDec_inter)
