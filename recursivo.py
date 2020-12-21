@@ -42,6 +42,7 @@ operadores=[
     'or'
 
 ]
+
 separadores = [
         '{',
         '}',
@@ -60,7 +61,10 @@ separadores = [
         ')',
         '=='
     ]
+
 # CONDICIONALES CODIGO INTERMEDIO
+# Metodo recursivo que termina hasta llegar a una condicion terminal como son 
+# todas las que no sean AND y OR
 def condIntermedio(arr,eV,eF):
     global cont_temp 
     global cont_etiqueta
@@ -113,28 +117,30 @@ def insertarinter(arr):
         inter.append(arr)
     else:
         inter_metodo.append(arr)
+# incrementa el uso del metodo
 def metodo_incrementar(met):
     for i in metodos:
         if i[0] == met:
             i[3]=i[3]+1
+# Declaracion global de las variables inciales
 def funcglobal():
     global cont_temp 
     global cont_etiqueta
     cont_temp= 0
     cont_etiqueta=10
-
+#Verificacion metodos no utilizados
 def metodoNoUtilizado():
     for i in metodos:
         if i[3]==0:
             return True
     return False
-
+#validaacion si el metodo existe
 def metodoDeclarado(var):
     for i in metodos:
         if i[0]==var:
             return True
     return False
-
+#Devuelve el tipo de una variable
 def varsTipoMetodo(metodo):
     i_param=0
     if metodoDeclarado(metodo):
@@ -155,7 +161,8 @@ def varsTipoMetodo(metodo):
         return False
             
 
-
+#metodo que valida que una varible no este declarada para poder insertarla en la tabla
+# de variables
 def notInVarDec(var,mact):
     for i in varDeclaradas:
         if i[1] == var and i[2]==mact:
@@ -165,6 +172,7 @@ def notInVarDec(var,mact):
     for i in varDeclaradas:
         if i[1]==1
     return False'''
+#regresa el tipo de una variable
 def vartipo(var):
     mact =metActual()
     for i in varDeclaradas:
@@ -177,13 +185,15 @@ def buscarVar(var):
         if i[1]==var and (i[2]==mact or i[2]== 0):
             return True 
     return False
+#regresa la posicion de una variable
 def traerVar(var):
     mact =metActual()
     for i in varDeclaradas:
         if i[1]==var and (i[2]==mact or i[2]== 0):
             return i 
     return False
-
+# incrementa el uso de una variable para la validacion de
+#variables utilizadas
 def varIncremetaUso(var):
     mact =metActual()
     for i in varDeclaradas[::-1]:
@@ -191,7 +201,7 @@ def varIncremetaUso(var):
             varDeclaradas[varDeclaradas.index(i)]=[i[0],i[1],i[2],i[3]+1]
             break
 
-
+#devuelve el metodo actual en el ue se encuentre siendo el 0 el metodo principal
 def metActual():
     for i in range(len(metodos)-1,-1,-1):
         if metodos[i][1]==False:
@@ -232,7 +242,8 @@ def senRep(arr,i,arr2):
         i=condicion(arr,i,arr2)
         arrAux=[]
         arrAux2=[]
-        insertarinter(['','',str(eI)+':',''])
+        #generacion codigo intermedio
+        insertarinter(['','',str(eI)+':','','Incio Ciclo'])
         for p in range(aux_cond,i):
             arrAux2.append(arr2[p])
             if arr2[p]not in separadores and arr[p]== 6:
@@ -276,7 +287,7 @@ def senRep(arr,i,arr2):
             if arr[i]==4:# }
                 i= i+1
                 insertarinter(['','','','goto '+str(eI)])
-                insertarinter(['','',str(eF)+':',''])
+                insertarinter(['','',str(eF)+':','','Fin Ciclo'])
                 return i
             else:
                 return 'a'
@@ -366,8 +377,8 @@ def senCond(arr,i,arr2):
                 arrAux.append(arr2[p])
         #print(arrAux2)
         if len(arrAux2)==3:
-            #generacion de etiquetas
-            insertarinter([arrAux2[0],arrAux2[2],arrAux2[1],'goto '+str(eV)])
+            #generacion de intermedio
+            insertarinter([arrAux2[0],arrAux2[2],arrAux2[1],'goto '+str(eV),'Inicio Condicion'])
             #print([arrAux2[0],arrAux2[2],arrAux2[1],str(eV)])
             insertarinter(['','','','goto '+str(eF)])
             insertarinter(['','',str(eV)+':',''])
@@ -415,7 +426,7 @@ def senCond(arr,i,arr2):
                 insertarinter(['','','','goto '+str(eS)])
                 insertarinter(['','',str(eF)+':',''])
                 i=senC2(arr,i,arr2)
-                insertarinter(['','',str(eS)+':',''])
+                insertarinter(['','',str(eS)+':','','Fin Condicion'])
                 #sleep(5)
                 return i
             else:
@@ -424,6 +435,7 @@ def senCond(arr,i,arr2):
             return 'a'
     else:
         return 'a'
+
 def Ep(arr,i,arr2):
     print(bcolors.WARNING + "Ep" + bcolors.ENDC)
     if arr[i]==20:
@@ -823,8 +835,7 @@ def declaracion(arr,i,arr2):
 
         i=i+1
         #print(arr2[i])
-        var_actual=arr2[i]
-        varDec_inter.append(['','',arr2[i-1],arr2[i]])
+        varDec_inter.append(['','',arr2[i-1],arr2[i],''])
         #sleep(1)
         auxInicio=i+1
         i=dec2(arr,i,arr2)
@@ -936,7 +947,7 @@ def ini1met(arr,i,arr2):
         return i
     return 'a'
 
-
+#produccion inicio
 def inicio(arr,i,arr2):
     print(bcolors.WARNING + "inicio" + bcolors.ENDC)
     try:
@@ -950,7 +961,7 @@ def inicio(arr,i,arr2):
                 metUso=[]
                 for k in metodos:
                     metUso.append(k[2])
-
+                #validacion variables  y metodos no utilizadas
                 if '0' in np.ndarray.tolist(varT)[3]:
                     print(bcolors.FAIL +"ERROR Variables No UTILIZADAS"+ bcolors.ENDC)
                     return False
@@ -973,7 +984,7 @@ def inicio(arr,i,arr2):
     except :
         print(bcolors.FAIL + "Error 3" + bcolors.ENDC)
         return False
-
+#el metodo corre todo el codigo intermedio
 def codigoIntermedio(var,tokpal):
 
     cuadruples=[]

@@ -1,3 +1,4 @@
+# ESte es el posfijo que funciona
 pilaPrin=[]
 pilaSec=[]
 
@@ -92,7 +93,7 @@ def posfijo(arr):
         aux =pilaSec.pop()
         if clasificar(aux) != 8:
             pilaPrin.append(aux)
-
+    #print(pilaPrin)
     return pilaPrin
 
     

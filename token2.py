@@ -1,3 +1,4 @@
+#libreria que genera el tokenizado de un texto
 import numpy as np
 abcd=list('ABCDEFGHIJKLMNOPQRSTUVXYZ'.upper())
 def tokenizar(nombre_archivo,tokens,separadores):

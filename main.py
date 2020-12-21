@@ -3,7 +3,7 @@ import numpy as np
 import recursivo as rc
 import posfijo as pj
 import temporales as tmp
-
+import optimizacion as opt
 class bcolors:
     HEADER = '\033[95m'
     OKBLUE = '\033[94m'
@@ -93,6 +93,7 @@ if len(err)== 0:
             print(q)
         for q in rc.inter:
             print(q)
+        opt.optimizar(rc.inter)
         #print(rc.varDec_inter)
 else:
     for i in err:

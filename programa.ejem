@@ -1,26 +1,44 @@
-inicio{
 
- num A =12+1;
- num B = 22+5+8;
- num D = 1;
- 
- imprimir 'Inicio del Programa';
+inicio {
 
-si ( A > B ){
-  imprimir A+1;
-}
-sino {
-leer B;
-}
-si ( A+1/B*B > D) {
-  imprimir D;
-}
-si ( A+1 > D) {
-  imprimir D+5;
-}
-si ( A+1 > D) {
-  imprimir D;
-}
+ num A = 1*5;
+ num X;
+ num Y;
+ num B;
+ num D;
+ Prueba ( num Parametro ) {
+     imprimir Parametro ;
+
+ } 
+
+imprimir 'Inicio del Programa';
+  imprimir A;
+  mientras ( A > X+A*1+B/D+1){
+  
+    imprimir Y;
+    A = A+B;
+    mientras ( A > X){
+    imprimir Y;
+    A = A+B;
+    si ( B > X){
+    imprimir Y;
+    A = A+B;
+  }
+
+  }
+  }
+  mientras ( A > X){
+    imprimir Y;
+  }
+  si ( 2 > 1){
+    leer Y;
+    A = B+A;
+  }
+
+  A = A+B*1;
+
+llamar Prueba (X);
 
 }
 fin
+

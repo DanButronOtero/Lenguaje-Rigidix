@@ -1,5 +1,5 @@
 inicio{
- num Numero ;
+ num Numero = 1 ;
  cad Cadena = 'cadena de prueba';
  Cadena = Cadena;
  Prueba ( num Parametro ) {

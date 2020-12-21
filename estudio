@@ -1,0 +1,112 @@
+if a < b :
+    a = a +5
+    imprimir a
+
+
+EV   EF    ES
+10   20    30
+
+
+if a<b goto 10
+goto 20
+10:
+a = a +5
+imprimir a
+goto 30
+20:
+30:
+
+<condicional> --> if <condición lógica> : <sen1>
+<sen1> --> <sentencia><sen1>
+<sen1> --> <asignacion><sen1>
+<sen1> --> vacio
+<asignacion> --> var = <EXP>
+
+<condicional>.codigo = EV = Nueva Etiqueta
+                       EF = Nueva Etiqueta
+                       ES = Nueva Etiqueta
+                       temp =<condición lógica>.codigo
+                       genera('if' temp 'goto' EV)
+                       genera('goto ' EF)
+                       genera(EV ':')
+                       <sen1>.codigo
+                       genera('goto' ES)
+                       genera(EF ':')
+                       genera(ES ':')
+
+<asignacion>.codigo =  temporales=<EXP>.codigo
+                       genera(variable '=' temporales)
+                       //temporales regresa el ultimo temporal
+
+
+
+
+//////////////////////////////////////////////////////////////////////
+
+
+For i=1 to 10 
+
+Write(i) 
+
+Next i 
+
+
+EI  EV   EF
+10  20  30
+
+i= 1
+10:
+if i <= 10 goto 20
+goto 30
+20:
+imprimir i
+i= i+1
+goto 10
+EF:
+
+
+
+For i=1 to 10 
+
+Write(i) 
+
+Next i 
+
+<for>--> for <condición lógica> to numero <sentencia> <sen-sig>
+<sen-sig> --> next variable
+<condición-lógica>--><exp> operador relacional <exp>
+
+<for>.codigo=   EI = Nueva Etiqueta
+                EV = Nueva Etiqueta
+                EF = Nueva Etiqueta
+                genera(EI ':')||
+                <condición lógica>.codigo||
+                genera(EV ':')||
+                <sentencia>.codigo||
+                <sen-sig>.codigo||
+                genera(goto EI)||
+                genera(EF ':')
+<sen-sig>.codigo =genera( variable '=' variable + 1)
+
+<condición-lógica>.codigo= temp1=<exp>.codigo ||
+                           temp2=<exp>.codigo ||
+                           genera('if' temp1 operador relacional temp2 'goto' EV)||
+                           genera('goto' EF)
+
+
+
+
+
+
+
+goto EV
+EI:
+condicion goto EV
+goto EF
+EV:
+sentencias
+goto EI
+EF:
+
+
+
