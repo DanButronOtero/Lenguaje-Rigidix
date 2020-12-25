@@ -1,5 +1,6 @@
 import time
 import numpy as np
+import time as tm
 bloques = []
 
 
@@ -11,11 +12,16 @@ def optimizar(arr):
         for j in range(0,len(bloques[i])):
             #operaciones
             bloques[i]=optBlq(bloques[i])
-    
-    aux = eliminarVarNoUso(bloques)
+    print('###################')
+    print(bloques)
+    print('###################')
+    eliminarVarNoUso(bloques)
+    print('###################')
+    for i in bloques:
+        for j in i:
+            print(j)
+    print('###################')
     arr = []
-    
-    
     separar(arr)
     c = 0
     b =0
@@ -27,11 +33,90 @@ def optimizar(arr):
             if len(k) ==5:
                 c+=1
         b+=1
+    propagarGlogal(bloques)
+    cambioSigno(bloques)
     print(c,'***********************************************************++')
-    
+    imprimir()
+
+def cambioSigno(blq):
+    blqEliminar =[]
+    for i in range(len(blq)):
+        for j in range(len(blq[i])):
+            if blq[i][j][2] in [ '>','<','>=','<=','==','!=']:
+                print(blq[i][j],'*********')
+                if blq[i][j][2] =='>':
+                    blq[i][j][2] = '<='
+                    blq[i][j][3]='goto '+str(int(blq[i][j][3][5:])+10)
+                    blqEliminar.append(i+1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+                elif blq[i][j][2] =='<':
+                    blq[i][j][2] = '>='
+                    blq[i][j][3] = 'goto ' + str(int(blq[i][j][3][5:]) + 10)
+                    blqEliminar.append(i + 1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+                elif blq[i][j][2] =='>=':
+                    blq[i][j][2] = '<'
+                    blq[i][j][3] = 'goto ' + str(int(blq[i][j][3][5:]) + 10)
+                    blqEliminar.append(i + 1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+                elif blq[i][j][2] =='<=':
+                    blq[i][j][2] = '>'
+                    blq[i][j][3] = 'goto ' + str(int(blq[i][j][3][5:]) + 10)
+                    blqEliminar.append(i + 1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+                elif blq[i][j][2] =='==':
+                    blq[i][j][2] = '!='
+                    blq[i][j][3] = 'goto ' + str(int(blq[i][j][3][5:]) + 10)
+                    blqEliminar.append(i + 1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+                elif blq[i][j][2] =='!=':
+                    blq[i][j][2] = '=='
+                    blq[i][j][3] = 'goto ' + str(int(blq[i][j][3][5:]) + 10)
+                    blqEliminar.append(i +1)
+                    blq[i + 2] = np.delete(blq[i + 2], 0, 0)
+    #blq[i] = np.delete(blq[i], j, 0)
+    for i in range(len(blqEliminar)-1,-1,-1):
+        bloques.pop(blqEliminar[i])
 
 
+
+def propagarGlogal(blq):
+    variables = []
+    for i in blq:
+        for j in i:
+            if  'goto' not in j[3] and j[3] != '' and "'" not in j[3]:
+                if j[3] not in variables:
+                    variables.append(j[3])
+    cambio = True
+    intermedio = []
+    for i in blq:
+        for j in i:
+            intermedio.append(j)
+    for i in intermedio:
+        print(i)
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    c = 0
+    for i in intermedio:
+        if len(i) ==5:
+            break
+        if ('goto ' not in i[3] and 'goto ' not in i[3] and 'imprimir' not in i[2]) and (i[3] != '') and ("'" not in i[3]) and (i[1] == ''):
+            print('***************',i,'  ',c)
+            var= i[3]
+            valor = i[0]
+            for j in range(c,len(intermedio)):
+                if len(intermedio[j]) ==5:
+                    break
+                if (intermedio[j][0] ==var and intermedio[j][3]!=var):
+                    intermedio[j][0] = valor
+
+                if (intermedio[j][1] ==var and intermedio[j][3]!=var):
+                    intermedio[j][1] = valor
         
+        c+=1
+    for i in intermedio:
+        print(i)
+    
+    print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
 
 
 
@@ -43,8 +128,7 @@ def eliminarVarNoUso(blq):
             if  'goto' not in j[3] and j[3] != '' and "'" not in j[3]:
                 if j[3] not in variables:
                     variables.append(j[3])
-                if j[3] in variables:
-                    print('variable encontrada')
+
     print(variables)
     for i in range(len(variables)):
         variables[i]= [variables[i],0]
@@ -84,7 +168,7 @@ def eliminarVarNoUso(blq):
             print(j)
 
     #print(np.delete(bloques[0],0,0))
-    return blq
+    
     
 
 
@@ -178,4 +262,5 @@ def operacion(num1,num2,op):
         return str(int(num1)*int(num2))
     elif op == '/':
         return str(int(num1)/int(num2))
+
 

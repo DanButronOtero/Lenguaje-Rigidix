@@ -636,7 +636,7 @@ def llamar(arr,i,arr2):
     print(bcolors.WARNING + "llamar" + bcolors.ENDC)
     if arr[i]==19 and arr[i+1]==6 and arr[i+2]==16:# llamar Var (
         var = arr2[i+1]
-
+        
         metodo_incrementar(var)
         i=i+3
         ini_param=i
