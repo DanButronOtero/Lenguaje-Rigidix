@@ -24,17 +24,21 @@ imprimir 'Inicio del Programa';
     imprimir Y;
     A = A+B;
   }
-
   }
+
   }
   mientras ( A > X){
     imprimir Y;
   }
-  si ( 2 > 1){
-    leer Y;
-    A = B+A;
-  }
+  si ( 5 < 1){
+    imprimir 'Verdadero';
 
+  }
+  sino{
+  A = A+B*1;
+  imprimir 'Falso';
+  }
+  llamar Prueba (X);
   A = A+B*1;
 
 llamar Prueba (X);

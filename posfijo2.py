@@ -1,10 +1,10 @@
-pilaPrin=[]
-pilaSec=[]
+pilaPrin = []
+pilaSec = []
 
 arr = [
-'(', 'a', '*', 'b', '+', 'c', '/', 'b', ')', '+', 'a', '*', 'a', '+', '(', 'b', '+', 'c', '/', 'd', ')', '+', 'a']
+    '(', 'a', '*', 'b', '+', 'c', '/', 'b', ')', '+', 'a', '*', 'a', '+', '(', 'b', '+', 'c', '/', 'd', ')', '+', 'a']
 
-operadores=[
+operadores = [
     '+',
     '-',
     '*',
@@ -20,54 +20,57 @@ operadores=[
     'or'
 
 ]
-#print(arr)
+
+
+# print(arr)
 
 def clasificar(car):
-    if car=='*':
+    if car == '*':
         return 5
-    if car=='/':
+    if car == '/':
         return 5
-    if car=='+':
+    if car == '+':
         return 4
-    if car=='-':
+    if car == '-':
         return 4
-    if car=='(':
+    if car == '(':
         return 8
-    if car==')':
+    if car == ')':
         return 7
-    if car=='<':
+    if car == '<':
         return 1
-    if car=='>':
+    if car == '>':
         return 1
-    if car=='==':
+    if car == '==':
         return 1
-    if car=='!=':
+    if car == '!=':
         return 1
-    if car=='<=':
+    if car == '<=':
         return 1
-    if car=='>=':
+    if car == '>=':
         return 1
-    if car=='=':
+    if car == '=':
         return 0
-    if car=='and':
+    if car == 'and':
         return 0
-    if car=='or':
+    if car == 'or':
         return 0
     else:
         return 10
 
-#principal
+
+# principal
 def posfijo(arr):
     for i in arr:
 
         if i not in operadores:
             pilaPrin.append(i)
-        elif clasificar(i)==8:#(
+        elif clasificar(i) == 8:  # (
             pilaSec.append(i)
-        elif clasificar(i)==7:#)
+        elif clasificar(i) == 7:  # )
 
             while pilaSec:
-                if pilaSec[len(pilaSec)-1]=='(':
+                if pilaSec[len(pilaSec) - 1] == '(':
                     pilaSec.pop()
                     break
                 else:
@@ -75,9 +78,10 @@ def posfijo(arr):
 
         elif len(pilaSec) != 0:
 
-            if clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]):
-                while clasificar(i)<= clasificar(pilaSec[len(pilaSec)-1]) and clasificar(pilaSec[len(pilaSec)-1]) !=8:
-                    aux =pilaSec.pop()
+            if clasificar(i) <= clasificar(pilaSec[len(pilaSec) - 1]):
+                while clasificar(i) <= clasificar(pilaSec[len(pilaSec) - 1]) and clasificar(
+                        pilaSec[len(pilaSec) - 1]) != 8:
+                    aux = pilaSec.pop()
                     pilaPrin.append(aux)
                 pilaSec.append(i)
             else:
@@ -85,18 +89,15 @@ def posfijo(arr):
         else:
             pilaSec.append(i)
 
-
-
     while pilaSec:
-        aux =pilaSec.pop()
+        aux = pilaSec.pop()
         if clasificar(aux) != 8:
             pilaPrin.append(aux)
 
     return pilaPrin
 
-    
 
-arrpos4=['(','a','>','b','or','b','<','c',')','or','(','c','>','d','and','c','<','b',')']
-salida=posfijo(arrpos4)
+arrpos4 = ['(', 'a', '>', 'b', 'or', 'b', '<', 'c', ')', 'or', '(', 'c', '>', 'd', 'and', 'c', '<', 'b', ')']
+salida = posfijo(arrpos4)
 print(salida)
 print(arrpos4)
