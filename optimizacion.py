@@ -37,11 +37,62 @@ def optimizar(arr):
     cambioSigno(bloques)
     print(c, '***********************************************************++')
     imprimir()
+    eliminarquintuple(bloques)
+    eliminarEtiquetasSeguidas(bloques)
+    saltoInecesario(bloques)
     # condVerdadero(bloques)
     # en desarrollo problemas con la identidficacion de condiociones anidadas
     # si qiere activarlo sin tener ciclos anidados descomente el metodo de arriba
     imprimir()
 
+def saltoInecesario(blq):
+    arrElim = []
+    for i in range(len(blq)):
+        for j in range(len(blq[i])):
+            if 'goto' in blq[i][j][3]:
+                varGoto = blq[i][j][3][5:]
+                if i<len(blq)-1:
+                  if varGoto+':' in blq[i+1][j][2]:
+                    print('************')
+                    print(blq[i])
+                    print(blq[i+1])
+                    arrElim.append(i)
+                    print('************')
+                    tm.sleep(6)
+    for i in range(len(arrElim)-1,-1,-1):
+        print(arrElim[i])
+        print(blq[arrElim[i]])
+        blq.pop( arrElim[i] )
+
+def eliminarquintuple(blq):
+    for i in range(len(blq)):
+        for j in range(len(blq[i])):
+            if len(blq[i][j])==5:
+                blq[i][j]= [blq[i][j][0],blq[i][j][1],blq[i][j][2],blq[i][j][3]]
+                print('quintuple')
+def sustituyeGoto(blq,eO,eC):
+    for i in range(len(blq)):
+        for j in range(len(blq[i])):
+            if blq[i][j][3][5:] == eO:
+                print(blq[i][j][3])
+                blq[i][j][3] = 'goto '+eC
+                print(blq[i][j][3])
+def eliminarEtiquetasSeguidas(blq):
+    arrElim =[]
+    for i in range(len(blq)):
+        for j in range(len(blq[i])):
+            if j == len(blq[i])-1:
+                if ':' in blq[i][j][2]:
+                    if i<len(blq)-1:
+                        if ':' in blq[i+1][0][2]:
+                            print(blq[i][j][2][:len(blq[i][j][2])-1])
+                            sustituyeGoto(blq, blq[i][j][2][:len(blq[i][j][2])-1], blq[i+1][j][2][:len(blq[i+1][j][2])-1])
+                            arrElim.append(i)
+
+    for i in range(len(arrElim)-1,-1,-1):
+        print(arrElim[i])
+        print(blq[arrElim[i]])
+        blq.pop( arrElim[i] )
 
 def condVerdadero(blq):
     c = 0

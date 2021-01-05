@@ -6,8 +6,8 @@ inicio {
  num Y;
  num B;
  num D;
- Prueba ( num Parametro ) {
-     imprimir Parametro ;
+ Prueba (num X) {
+     imprimir X ;
 
  } 
 
@@ -38,10 +38,10 @@ imprimir 'Inicio del Programa';
   A = A+B*1;
   imprimir 'Falso';
   }
-  llamar Prueba (X);
+  llamar Prueba (X );
   A = A+B*1;
 
-llamar Prueba (X);
+llamar Prueba ( X);
 
 }
 fin

@@ -165,7 +165,7 @@ def varsTipoMetodo(metodo):
     if metodoDeclarado(metodo):
         for i in metodos:
             print(i)
-            sleep(2)
+            #sleep(2)
             if i[0] == metodo:
                 num_par = i[2]
                 break
@@ -697,7 +697,7 @@ def llamar(arr, i, arr2):
             if j[2]== str(arr2[i + 1])+':':
                 met = True
                 print(j)
-                sleep(2)
+                #sleep(2)
 
 
         var = arr2[i + 1]
