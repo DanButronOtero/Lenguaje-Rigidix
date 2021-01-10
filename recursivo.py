@@ -280,7 +280,7 @@ def senRep(arr, i, arr2):
         arrAux = []
         arrAux2 = []
         # generacion codigo intermedio
-        insertarinter(['', '', str(eI) + ':', '', 'Incio Ciclo'])
+        insertarinter(['', '', str(eI) + ':', '', 'Inicio Ciclo'])
         for p in range(aux_cond, i):
             arrAux2.append(arr2[p])
             if arr2[p] not in separadores and arr[p] == 6:

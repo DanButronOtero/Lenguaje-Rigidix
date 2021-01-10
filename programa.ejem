@@ -1,11 +1,17 @@
 
 inicio {
 
- num A = 1*5;
+ num A = 5;
  num X = 1 + 2 + 3 * 4 - 6 + 7+(2*2);
  num Y;
- num B;
+ num B ;
  num D;
+ num Z;
+ num Z1=1+3;
+ num Z2 =2;
+
+
+
  Prueba (num X) {
      imprimir X ;
 
@@ -30,7 +36,7 @@ imprimir 'Inicio del Programa';
   mientras ( A > X){
     imprimir Y;
   }
-  si ( 5 < 1){
+  si ( A < 1){
     imprimir 'Verdadero';
 
   }
@@ -39,7 +45,9 @@ imprimir 'Inicio del Programa';
   imprimir 'Falso';
   }
   llamar Prueba (X );
-  A = A+B*1;
+  Z = Z1 + Z2;
+  imprimir Z ;
+ 
 
 llamar Prueba ( X);
 

@@ -15,6 +15,15 @@ def optimizar(arr):
     # print('###################')
     # print(bloques)
     # print('###################')
+    propagarGlb(bloques)
+    eliminarVarNoUso(bloques)
+    propagarGlb(bloques)
+    for i in range(0, len(bloques)):
+        for j in range(0, len(bloques[i])):
+            # operaciones
+            bloques[i] = optBlq2(bloques[i])
+    #eliminarVarNoUso(bloques)
+    propagarGlb(bloques)
     eliminarVarNoUso(bloques)
     # print('###################')
     # for i in bloques:
@@ -40,11 +49,87 @@ def optimizar(arr):
     eliminarquintuple(bloques)
     eliminarEtiquetasSeguidas(bloques)
     saltoInecesario(bloques)
-    # condVerdadero(bloques)
-    # en desarrollo problemas con la identidficacion de condiociones anidadas
-    # si qiere activarlo sin tener ciclos anidados descomente el metodo de arriba
-    imprimir()
 
+    imprimir()
+def bloquesUsoVar(blq,var):
+    cont =0
+    arr=[]
+    for i in blq:
+        for j in i:
+            if j[3]==var:
+                if cont not in arr:
+                    arr.append(cont)
+        cont+=1
+    return cont
+    
+
+def propagarGlb(blq):
+    cont = 0
+    var =   []
+    val =   []
+
+              
+    for i in blq:
+        for j in i:
+            if 'T28' in j:
+                print('*************')
+                print(cont)
+                print(j)
+                print(var)
+                print(val)
+                print('*************')
+                tm.sleep(4)
+            if len(j)==5:
+                print(j[4])
+                if 'Inicio' in j[4]:
+                    cont+=1
+                    print(cont)
+                else:
+                    cont-=1
+                    print(cont)
+            if cont ==0:
+                if j[2] == '=':
+                    if j[3] in var:
+                        index = var.index(j[3])
+                        val[index] = j[0]
+                        
+                    else:
+                        val.append(j[0])
+                        var.append(j[3])
+                        print(j[0],'    ',j[3])
+                        if j[0] in var:
+                            print('Bingo  ',j[0],'    ',j[3])
+                if j[0] in var:
+                    index = var.index(j[0])
+                    print(j[0],'+++++++++++++',val[index])
+                    #tm.sleep(2)
+                    j[0] =  val[index]
+
+                if j[1] in var:
+                    index = var.index(j[1])
+                    print(j[1],'+++++++++++++',val[index])
+                    tm.sleep(2)
+                    j[1] =  val[index]
+
+            else:
+                if j[2] == '=' and j[3]in var:
+                   index = var.index(j[3])
+                   print(index)
+                   val.pop(index)
+                   var.pop(index)
+        
+        #tm.sleep(2)
+    print(var)
+    print(val)
+    tm.sleep(10)
+            
+
+    
+            
+
+            
+
+    
 def saltoInecesario(blq):
     arrElim = []
     for i in range(len(blq)):
@@ -212,14 +297,11 @@ def propagarGlogal(blq):
             if 'goto' not in j[3] and j[3] != '' and "'" not in j[3]:
                 if j[3] not in variables:
                     variables.append(j[3])
-    cambio = True
     intermedio = []
     for i in blq:
         for j in i:
             intermedio.append(j)
-    # for i in intermedio:
-    #     print(i)
-    # print('!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+
     c = 0
     for i in intermedio:
         if len(i) == 5:
@@ -319,12 +401,42 @@ def optBlq(bloque):
         if bloque[j][2] == '*' and bloque[j][1] == '0':
             bloque[j] = ['0', '', '=', bloque[j][3]]
             bloque = propagar(bloque, j)
+        if bloque[j][2] == '/' and bloque[j][0] == '0':
+            bloque[j] = ['0', '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+        if bloque[j][2] == '+' and bloque[j][0] == '0':
+            bloque[j] = [bloque[j][1], '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+        if bloque[j][2] == '+' and bloque[j][1] == '0':
+            bloque[j] = [bloque[j][0], '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
         if bloque[j][2] == '*' and bloque[j][0] == '0':
             bloque[j] = ['0', '', '=', bloque[j][3]]
             bloque = propagar(bloque, j)
 
     return bloque
 
+def optBlq2(bloque):
+    # print('OPTIMIZACION')
+    for j in range(len(bloque)):
+        if bloque[j][2] in ['+', '-', '*', '/'] and (bloque[j][0].isnumeric() and bloque[j][1].isnumeric()):
+            bloque[j] = [operacion(bloque[j][0], bloque[j][1], bloque[j][2]), '', '=', bloque[j][3]]
+            #bloque = eliminarNoUso(bloque, bloque[j])
+        # multiplicacion * 1
+        if bloque[j][2] == '*' and bloque[j][1] == '1':
+            bloque[j] = [bloque[j][0], '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+        if bloque[j][2] == '*' and bloque[j][0] == '1':
+            bloque[j] = [bloque[j][1], '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+        if bloque[j][2] == '*' and bloque[j][1] == '0':
+            bloque[j] = ['0', '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+        if bloque[j][2] == '*' and bloque[j][0] == '0':
+            bloque[j] = ['0', '', '=', bloque[j][3]]
+            bloque = propagar(bloque, j)
+
+    return bloque
 
 def separar(arr):
     # print('************************')
