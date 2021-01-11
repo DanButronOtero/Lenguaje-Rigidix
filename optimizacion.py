@@ -34,7 +34,6 @@ def optimizar(arr):
     separar(arr)
     c = 0
     b = 0
-    print('7777777777777777777777777777777777777777')
     for i in bloques:
         # print('BLOQUE ',b)
         for k in i:
@@ -49,7 +48,9 @@ def optimizar(arr):
     eliminarquintuple(bloques)
     eliminarEtiquetasSeguidas(bloques)
     saltoInecesario(bloques)
-
+    # condVerdadero(bloques)
+    # en desarrollo problemas con la identidficacion de condiociones anidadas
+    # si qiere activarlo sin tener ciclos anidados descomente el metodo de arriba
     imprimir()
 def bloquesUsoVar(blq,var):
     cont =0
@@ -71,22 +72,12 @@ def propagarGlb(blq):
               
     for i in blq:
         for j in i:
-            if 'T28' in j:
-                print('*************')
-                print(cont)
-                print(j)
-                print(var)
-                print(val)
-                print('*************')
-                tm.sleep(4)
             if len(j)==5:
                 print(j[4])
                 if 'Inicio' in j[4]:
                     cont+=1
-                    print(cont)
                 else:
                     cont-=1
-                    print(cont)
             if cont ==0:
                 if j[2] == '=':
                     if j[3] in var:
@@ -97,8 +88,8 @@ def propagarGlb(blq):
                         val.append(j[0])
                         var.append(j[3])
                         print(j[0],'    ',j[3])
-                        if j[0] in var:
-                            print('Bingo  ',j[0],'    ',j[3])
+                        #if j[0] in var:
+                        #    print('Bingo  ',j[0],'    ',j[3])
                 if j[0] in var:
                     index = var.index(j[0])
                     print(j[0],'+++++++++++++',val[index])
@@ -108,7 +99,7 @@ def propagarGlb(blq):
                 if j[1] in var:
                     index = var.index(j[1])
                     print(j[1],'+++++++++++++',val[index])
-                    tm.sleep(2)
+                    #tm.sleep(2)
                     j[1] =  val[index]
 
             else:
@@ -121,7 +112,7 @@ def propagarGlb(blq):
         #tm.sleep(2)
     print(var)
     print(val)
-    tm.sleep(10)
+    #tm.sleep(10)
             
 
     
