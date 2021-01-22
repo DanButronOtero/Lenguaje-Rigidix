@@ -1,31 +1,31 @@
 
 inicio {
- num A =0;
- num B =0;
- num C = 0;
 
-imprimir 'Operaciones Aritmeticas' ;
+ num X = 0;
+ num Numero = 0;
+ num VAR1 = 1;
+ num VAR2 = 1;
+ num Aux  = 0;
 
-A = 20;
-B = 10;
-C = 3;
-imprimir 'A';
-imprimir A;
-imprimir 'B';
-imprimir B;
-imprimir 'C';
-imprimir C;
+ ImprimirX(num X){
+   imprimir X;
+ }
+imprimir 'Cuantos numeros de la serie de fibonacci quieres?';
+  leer Numero ;
+  imprimir '1';
+  mientras ( X < Numero ){
 
-imprimir 'suma A+B+C';
-imprimir A+B+C;
-
-imprimir 'resta A-B-C';
-imprimir A-B-C;
-
-imprimir 'resta A*B*C';
-imprimir A*B*C;
+    imprimir VAR1;
+    Aux = VAR2;
+    VAR2 = VAR1 + VAR2 ;
+    VAR1 = Aux ;
+    X= X + 1 ;
+    
+    llamar ImprimirX(X);
+  }
   
-imprimir 'resta A/B';
-imprimir A/B;
 }
 fin
+
+
+

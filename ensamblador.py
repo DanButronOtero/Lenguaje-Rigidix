@@ -154,8 +154,8 @@ def generaEnsamblador(arr):
 
 
     cadena = ''
-    for i in arr:
-        cadena = cadena+str(i)+'\n'
+#    for i in arr:
+#        cadena = cadena+str(i)+'\n'
     for i in ensamblador:
         cadena = cadena+i+'\n'
         print(i)

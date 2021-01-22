@@ -10,7 +10,7 @@ inicio {
 imprimir 'Cuantos numeros de la serie de fibonacci quieres?';
   leer Numero ;
  
-  mientras ( X < Numero or  X < Numero + 1 and X > Numero - 1)  ){
+  mientras ( X < Numero or  X < Numero + 1 and X > Numero - 1  ){
 
     imprimir VAR1;
     Aux = VAR2;
