@@ -4,7 +4,7 @@ import recursivo as rc
 import posfijo as pj
 import temporales as tmp
 import optimizacion as opt
-
+import ensamblador as asm
 
 class bcolors:
     HEADER = '\033[95m'
@@ -96,8 +96,9 @@ if len(err) == 0:
             print(q)
         for q in rc.inter:
             print(q)
-        opt.optimizar(rc.inter)
+        #opt.optimizar(rc.inter)
         # print(rc.varDec_inter)
+        asm.generaEnsamblador(rc.inter)
 else:
     for i in err:
         print(bcolors.FAIL + str(i[0]) + '\t\t' + i[1] + '\t\t' + i[2] + bcolors.ENDC)

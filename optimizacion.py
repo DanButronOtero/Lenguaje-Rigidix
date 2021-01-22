@@ -132,12 +132,14 @@ def saltoInecesario(blq):
                     print('************')
                     print(blq[i])
                     print(blq[i+1])
+                    tm.sleep(2)
                     arrElim.append(i)
                     print('************')
                     tm.sleep(6)
     for i in range(len(arrElim)-1,-1,-1):
         print(arrElim[i])
         print(blq[arrElim[i]])
+        tm.sleep(2)
         blq.pop( arrElim[i] )
 
 def eliminarquintuple(blq):
@@ -164,10 +166,13 @@ def eliminarEtiquetasSeguidas(blq):
                             print(blq[i][j][2][:len(blq[i][j][2])-1])
                             sustituyeGoto(blq, blq[i][j][2][:len(blq[i][j][2])-1], blq[i+1][j][2][:len(blq[i+1][j][2])-1])
                             arrElim.append(i)
+                            print(blq[i])
+                            tm.sleep(2)
 
     for i in range(len(arrElim)-1,-1,-1):
         print(arrElim[i])
         print(blq[arrElim[i]])
+        tm.sleep(2)
         blq.pop( arrElim[i] )
 
 def condVerdadero(blq):
@@ -278,6 +283,8 @@ def cambioSigno(blq):
                     blq[i + 2] = np.delete(blq[i + 2], 0, 0)
     # blq[i] = np.delete(blq[i], j, 0)
     for i in range(len(blqEliminar) - 1, -1, -1):
+        print(blq[blqEliminar[i]])
+        tm.sleep(2)
         bloques.pop(blqEliminar[i])
 
 

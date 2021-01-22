@@ -1,0 +1,26 @@
+
+inicio {
+
+ num X = 0;
+ num Numero = 0;
+ num VAR1 = 1;
+ num VAR2 = 1;
+ num Aux  = 0;
+
+imprimir 'Cuantos numeros de la serie de fibonacci quieres?';
+  leer Numero ;
+ 
+  mientras ( X < Numero or  X < Numero + 1 and X > Numero - 1)  ){
+
+    imprimir VAR1;
+    Aux = VAR2;
+    VAR2 = VAR1 + VAR2 ;
+    VAR1 = Aux ;
+    X= X + 1 ;
+  }
+  
+}
+fin
+
+
+

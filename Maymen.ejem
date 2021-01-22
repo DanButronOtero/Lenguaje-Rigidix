@@ -1,0 +1,30 @@
+
+inicio {
+
+
+ num NumeroUno = 0;
+ num NumeroDos = 0;
+
+imprimir 'ingresa el primer numero';
+leer NumeroUno;
+imprimir 'ingresa el prsegundo numero';
+leer NumeroDos;
+
+si (NumeroUno > NumeroDos) {
+  imprimir 'el primer numero es mayor que el segundo';
+}
+sino {
+  si (NumeroUno < NumeroDos){
+    imprimir 'El segundo numero es mayor que el primero';
+  }
+  sino {
+    imprimir 'Los numeros son iguales';
+  }
+  
+}
+
+  
+}
+fin
+
+
