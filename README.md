@@ -13,3 +13,9 @@ una vez instalada podemos correr el programa main
 python main.py
 ```
 
+luego clonamos este repositorio
+
+```
+git clone https://github.com/DanButronOtero/Lenguaje-Rigidix
+```
+
